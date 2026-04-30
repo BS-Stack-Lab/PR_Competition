@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D.TRACE 팝업스토어 방문자 혜택 신청서</title>
+    <style>
+:root {
+  color-scheme: light;
+  --bg: #eef2f7;
+  --panel: #ffffff;
+  --ink: #17202f;
+  --muted: #647083;
+  --line: #dce3ee;
+  --blue: #2b6eea;
+  --blue-dark: #164ea8;
+  --cyan: #19a7ce;
+  --danger: #c73d35;
+  --warning: #fff4db;
+  --success: #e7f8ef;
+  --shadow: 0 16px 48px rgba(28, 45, 78, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(25, 167, 206, 0.18), transparent 32rem),
+    linear-gradient(180deg, #f8fbff 0%, var(--bg) 52%, #e8edf5 100%);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+    "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+body.result-mode {
+  background: #fff;
+}
+
+body.result-mode .page-shell {
+  width: 100%;
+  padding: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page-shell {
+  width: min(100%, 860px);
+  margin: 0 auto;
+  padding: 40px 18px 64px;
+}
+
+.form-panel,
+.result-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.brand-strip {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  min-height: 220px;
+  align-items: end;
+  padding: 30px;
+  border-radius: 8px 8px 0 0;
+  background:
+    linear-gradient(135deg, rgba(12, 26, 55, 0.92), rgba(18, 67, 126, 0.82)),
+    url("data:image/svg+xml,%3Csvg width='900' height='300' viewBox='0 0 900 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.22'%3E%3Cpath d='M34 240 C145 120 224 244 330 104 S548 112 642 58 792 34 866 126'/%3E%3Cpath d='M60 84 H222 V178 H372 V84 H552 V216 H756'/%3E%3C/g%3E%3Cg fill='%23ffffff' fill-opacity='.76'%3E%3Ccircle cx='60' cy='84' r='5'/%3E%3Ccircle cx='222' cy='178' r='5'/%3E%3Ccircle cx='372' cy='84' r='5'/%3E%3Ccircle cx='552' cy='216' r='5'/%3E%3Ccircle cx='756' cy='216' r='5'/%3E%3Ccircle cx='642' cy='58' r='5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover;
+  box-shadow: var(--shadow);
+  color: #fff;
+}
+
+.brand-strip::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  content: "";
+}
+
+.trace-visual {
+  position: absolute;
+  top: 26px;
+  right: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, 34px);
+  gap: 9px;
+  opacity: 0.8;
+}
+
+.trace-visual span {
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 13ch;
+  margin-bottom: 0;
+  font-size: clamp(2rem, 6vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.intro-card,
+.form-section,
+.result-panel > article,
+.message-block,
+.safe-notice,
+.next-step {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 4px 20px rgba(31, 55, 92, 0.06);
+}
+
+.intro-card {
+  padding: 28px;
+  border-top: 8px solid var(--blue);
+}
+
+.intro-card p {
+  margin-bottom: 12px;
+  color: #273347;
+}
+
+.intro-card ul,
+.result-panel ul,
+.terms-box ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.intro-card li,
+.result-panel li,
+.terms-box li {
+  margin: 6px 0;
+}
+
+.time {
+  font-weight: 700;
+}
+
+.note,
+.hint,
+.quote,
+.optional {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.form-section {
+  padding: 22px 26px 10px;
+}
+
+.form-section h2 {
+  margin-bottom: 18px;
+  color: var(--blue-dark);
+  font-size: 1.03rem;
+  font-weight: 800;
+}
+
+.question {
+  margin: 0;
+  padding: 0 0 24px;
+  border: 0;
+}
+
+.question + .question {
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.question label,
+.question legend {
+  width: 100%;
+  color: var(--ink);
+  font-size: 1.03rem;
+  font-weight: 700;
+}
+
+.question legend {
+  padding: 0;
+}
+
+.required {
+  color: var(--danger);
+}
+
+.hint {
+  margin: 8px 0 12px;
+}
+
+input[type="text"],
+input[type="tel"] {
+  width: min(100%, 380px);
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #bdc8d8;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(43, 110, 234, 0.12);
+}
+
+.choice-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.choice-list label,
+.consent-check {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  align-items: start;
+  min-height: 32px;
+  color: #253045;
+  font-weight: 500;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 3px 0 0;
+  accent-color: var(--blue);
+}
+
+.quote {
+  margin: 16px 0 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--line);
+}
+
+.terms-box {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7f9fc;
+  color: #374256;
+  font-size: 0.94rem;
+}
+
+.terms-box p:last-child,
+.intro-card p:last-child,
+.safe-notice p:last-child,
+.message-block p:last-child {
+  margin-bottom: 0;
+}
+
+.error {
+  min-height: 1.35rem;
+  margin: 8px 0 0;
+  color: var(--danger);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.question.invalid input[type="text"],
+.question.invalid input[type="tel"] {
+  border-color: var(--danger);
+}
+
+.submit-bar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 -6px 24px rgba(31, 55, 92, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.submit-bar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+button {
+  min-width: 108px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--blue);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+button:hover,
+button:focus-visible {
+  background: var(--blue-dark);
+}
+
+.result-panel {
+  width: min(100%, 750px);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px 72px;
+  background: #fff;
+}
+
+.alert-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: clamp(96px, 20vh, 220px) 0 32px;
+  border-radius: 0;
+  background: #fff;
+  color: #161719;
+  text-align: center;
+}
+
+.alert-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  order: 2;
+}
+
+.alert-icon {
+  order: 1;
+  width: clamp(174px, 28vw, 226px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin-bottom: 42px;
+}
+
+.alert-hero .eyebrow {
+  margin: 0 0 6px;
+  color: #fb5837;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.alert-hero h2 {
+  max-width: 14ch;
+  margin: 0 0 16px;
+  color: #151617;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.alert-hero p:last-child {
+  max-width: 33rem;
+  margin: 0;
+  color: #818181;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.result-grid article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(31, 55, 92, 0.06);
+}
+
+.result-grid h3,
+.message-block h3,
+.safe-notice h3,
+.next-step h3 {
+  margin-bottom: 12px;
+  font-size: 1.16rem;
+}
+
+.message-block,
+.safe-notice,
+.next-step {
+  padding: 24px;
+}
+
+.next-step {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid #e8ecf3;
+  border-radius: 8px;
+  background: #f8fafc;
+  box-shadow: none;
+}
+
+.next-step h3 {
+  margin-bottom: 16px;
+  color: #151617;
+  font-size: 16px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.next-step ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #4f5661;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.next-step li {
+  margin: 8px 0;
+}
+
+.message-block {
+  border-color: #f0d0c7;
+  background: var(--warning);
+}
+
+.safe-notice {
+  border-color: #b9e9cd;
+  background: var(--success);
+}
+
+.brand-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: baseline;
+  justify-content: center;
+  padding: 18px;
+  color: var(--blue-dark);
+}
+
+.brand-footer strong {
+  font-size: 1.2rem;
+}
+
+.result-panel .result-grid,
+.result-panel .message-block,
+.result-panel .safe-notice,
+.result-panel .brand-footer {
+  display: none !important;
+}
+
+@media (max-width: 680px) {
+  .page-shell {
+    padding: 18px 12px 42px;
+  }
+
+.brand-strip,
+  .intro-card,
+  .form-section,
+  .alert-hero,
+  .message-block,
+  .safe-notice,
+  .next-step {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .result-panel {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .alert-hero {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .next-step {
+    padding: 24px;
+  }
+
+  .brand-strip {
+    min-height: 190px;
+  }
+
+  .trace-visual {
+    grid-template-columns: repeat(2, 26px);
+    top: 18px;
+    right: 18px;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .submit-bar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="form-panel" id="surveyPanel" aria-labelledby="surveyTitle">
+        <div class="brand-strip">
+          <div class="trace-visual" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <p class="eyebrow">D.TRACE POP-UP STORE</p>
+            <h1 id="surveyTitle">팝업스토어 방문자 혜택 신청서</h1>
+          </div>
+        </div>
+
+        <div class="intro-card">
+          <p>D.TRACE 팝업스토어 방문을 환영합니다.</p>
+          <p>
+            본 설문은 방문 고객을 위한 간단한 참여 절차이며, 응답 완료 시 아래 혜택을
+            제공해 드립니다.
+          </p>
+          <ul>
+            <li>무료 아메리카노 모바일 쿠폰</li>
+            <li>한정판 디지털 굿즈 팩</li>
+          </ul>
+          <p class="time">소요 시간: 약 20~30초</p>
+          <p class="note">
+            일부 응답 내용은 서비스 개선 및 맞춤형 혜택 제공을 위한 참고 자료로 활용될 수
+            있습니다.
+          </p>
+        </div>
+
+        <form id="surveyForm" novalidate>
+          <section class="form-section" aria-labelledby="section1">
+            <h2 id="section1">Section 1. 혜택 수령 정보</h2>
+            <fieldset class="question">
+              <label for="name">1. 이름 (실명) <span class="required">*</span></label>
+              <p class="hint">현장 수령 확인을 위해 사용됩니다.</p>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+              <p class="error" data-error-for="name"></p>
+            </fieldset>
+
+            <fieldset class="question">
+              <label for="phone">2. 연락처 (휴대폰 번호) <span class="required">*</span></label>
+              <p class="hint">모바일 쿠폰 발송용</p>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputmode="tel"
+                autocomplete="tel"
+                placeholder="예: 010-1234-5678"
+                required
+              />
+              <p class="error" data-error-for="phone"></p>
+            </fieldset>
+          </section>
+
+          <section class="form-section" aria-labelledby="section2">
+            <h2 id="section2">Section 2. 브랜드 경험 및 인식</h2>
+            <fieldset class="question" data-required-group>
+              <legend>3. D.TRACE에 대한 첫 인상은 어떠셨나요? <span class="required">*</span></legend>
+              <p class="hint">가장 가까운 이미지를 선택해 주세요.</p>
+              <div class="choice-list">
+                <label><input type="radio" name="firstImpression" value="프리미엄 테크 브랜드 같다" required /> 프리미엄 테크 브랜드 같다</label>
+                <label><input type="radio" name="firstImpression" value="디자인이 세련되고 신뢰감 있다" /> 디자인이 세련되고 신뢰감 있다</label>
+                <label><input type="radio" name="firstImpression" value="보안/데이터 관련 브랜드 같다" /> 보안/데이터 관련 브랜드 같다</label>
+                <label><input type="radio" name="firstImpression" value="아직 잘 모르겠다" /> 아직 잘 모르겠다</label>
+                <label><input type="radio" name="firstImpression" value="기타" /> 기타</label>
+              </div>
+              <p class="error" data-error-for="firstImpression"></p>
+            </fieldset>
+
+            <fieldset class="question" data-required-group>
+              <legend>4. “Digital Grooming” 개념에 대해 어떻게 생각하시나요? <span class="required">*</span></legend>
+              <p class="hint">디지털 환경에서 나의 데이터와 흔적을 관리하는 라이프스타일</p>
+              <div class="choice-list">
+                <label><input type="radio" name="digitalGrooming" value="매우 공감한다" required /> 매우 공감한다</label>
+                <label><input type="radio" name="digitalGrooming" value="어느 정도 필요하다고 생각한다" /> 어느 정도 필요하다고 생각한다</label>
+                <label><input type="radio" name="digitalGrooming" value="필요하지만 실천이 어렵다" /> 필요하지만 실천이 어렵다</label>
+                <label><input type="radio" name="digitalGrooming" value="잘 모르겠다" /> 잘 모르겠다</label>
+              </div>
+              <p class="error" data-error-for="digitalGrooming"></p>
+            </fieldset>
+
+            <fieldset class="question" data-required-group>
+              <legend>5. 평소 본인의 개인정보 관리 수준은 어느 정도라고 생각하시나요? <span class="required">*</span></legend>
+              <div class="choice-list">
+                <label><input type="radio" name="privacyLevel" value="매우 철저하게 관리한다" required /> 매우 철저하게 관리한다</label>
+                <label><input type="radio" name="privacyLevel" value="기본적인 설정만 한다" /> 기본적인 설정만 한다</label>
+                <label><input type="radio" name="privacyLevel" value="거의 신경 쓰지 않는다" /> 거의 신경 쓰지 않는다</label>
+                <label><input type="radio" name="privacyLevel" value="잘 모르겠다" /> 잘 모르겠다</label>
+              </div>
+              <p class="error" data-error-for="privacyLevel"></p>
+            </fieldset>
+          </section>
+
+          <section class="form-section" aria-labelledby="section3">
+            <h2 id="section3">Section 3. 디지털 사용 패턴</h2>
+            <fieldset class="question" data-required-checkbox="sns">
+              <legend>6. 평소 자주 사용하는 SNS를 선택해 주세요 (복수 선택 가능) <span class="required">*</span></legend>
+              <div class="choice-list">
+                <label><input type="checkbox" name="sns" value="인스타그램" /> 인스타그램</label>
+                <label><input type="checkbox" name="sns" value="틱톡" /> 틱톡</label>
+                <label><input type="checkbox" name="sns" value="유튜브" /> 유튜브</label>
+                <label><input type="checkbox" name="sns" value="X(트위터)" /> X(트위터)</label>
+                <label><input type="checkbox" name="sns" value="없음" /> 없음</label>
+              </div>
+              <p class="error" data-error-for="sns"></p>
+            </fieldset>
+
+            <fieldset class="question" data-required-group>
+              <legend>7. 앱 설치 시 ‘약관 동의’를 어떻게 하시나요? <span class="required">*</span></legend>
+              <p class="hint">가장 가까운 행동을 선택해 주세요.</p>
+              <div class="choice-list">
+                <label><input type="radio" name="termsBehavior" value="내용을 꼼꼼히 읽고 동의한다" required /> 내용을 꼼꼼히 읽고 동의한다</label>
+                <label><input type="radio" name="termsBehavior" value="중요한 부분만 확인한다" /> 중요한 부분만 확인한다</label>
+                <label><input type="radio" name="termsBehavior" value="거의 읽지 않고 바로 동의한다" /> 거의 읽지 않고 바로 동의한다</label>
+                <label><input type="radio" name="termsBehavior" value="잘 기억나지 않는다" /> 잘 기억나지 않는다</label>
+              </div>
+              <p class="error" data-error-for="termsBehavior"></p>
+            </fieldset>
+
+            <fieldset class="question">
+              <legend>8. 최근 1개월 내 아래와 같은 경험이 있으신가요? <span class="optional">(선택)</span></legend>
+              <div class="choice-list">
+                <label><input type="checkbox" name="recentExperience" value="광고성 문자나 알림이 늘었다" /> 광고성 문자나 알림이 늘었다</label>
+                <label><input type="checkbox" name="recentExperience" value="맞춤 광고가 더 정확해졌다" /> 맞춤 광고가 더 정확해졌다</label>
+                <label><input type="checkbox" name="recentExperience" value="원치 않는 앱 알림을 받았다" /> 원치 않는 앱 알림을 받았다</label>
+                <label><input type="checkbox" name="recentExperience" value="해당 없음" /> 해당 없음</label>
+              </div>
+            </fieldset>
+          </section>
+
+          <section class="form-section" aria-labelledby="section4">
+            <h2 id="section4">Section 4. 디바이스 및 환경 정보</h2>
+            <fieldset class="question" data-required-group>
+              <legend>9. 사용 중인 스마트폰 기종 <span class="required">*</span></legend>
+              <div class="choice-list">
+                <label><input type="radio" name="device" value="iPhone 15 이상" required /> iPhone 15 이상</label>
+                <label><input type="radio" name="device" value="iPhone 14 이하" /> iPhone 14 이하</label>
+                <label><input type="radio" name="device" value="Galaxy S24 이상" /> Galaxy S24 이상</label>
+                <label><input type="radio" name="device" value="Galaxy Z 시리즈" /> Galaxy Z 시리즈</label>
+                <label><input type="radio" name="device" value="기타" /> 기타</label>
+              </div>
+              <p class="error" data-error-for="device"></p>
+            </fieldset>
+
+            <fieldset class="question" data-required-group>
+              <legend>10. 위치 기반 서비스(GPS) 사용 방식은 어떻게 되시나요? <span class="required">*</span></legend>
+              <div class="choice-list">
+                <label><input type="radio" name="gps" value="항상 켜둔다" required /> 항상 켜둔다</label>
+                <label><input type="radio" name="gps" value="필요할 때만 허용한다" /> 필요할 때만 허용한다</label>
+                <label><input type="radio" name="gps" value="거의 꺼둔다" /> 거의 꺼둔다</label>
+                <label><input type="radio" name="gps" value="잘 모르겠다" /> 잘 모르겠다</label>
+              </div>
+              <p class="quote">위치 정보는 서비스 추천 및 경험 개선에 활용될 수 있습니다.</p>
+              <p class="error" data-error-for="gps"></p>
+            </fieldset>
+          </section>
+
+          <section class="form-section" aria-labelledby="section5">
+            <h2 id="section5">Section 5. 개인정보 인식</h2>
+            <fieldset class="question" data-required-checkbox="shareableInfo">
+              <legend>11. 다음 중 제공해도 괜찮다고 생각하는 정보를 선택해 주세요 (복수 선택 가능) <span class="required">*</span></legend>
+              <div class="choice-list">
+                <label><input type="checkbox" name="shareableInfo" value="이름 및 연락처" /> 이름 및 연락처</label>
+                <label><input type="checkbox" name="shareableInfo" value="SNS 계정 정보" /> SNS 계정 정보</label>
+                <label><input type="checkbox" name="shareableInfo" value="위치 정보 (활동 지역)" /> 위치 정보 (활동 지역)</label>
+                <label><input type="checkbox" name="shareableInfo" value="디바이스 정보" /> 디바이스 정보</label>
+                <label><input type="checkbox" name="shareableInfo" value="앱 및 서비스 이용 패턴" /> 앱 및 서비스 이용 패턴</label>
+              </div>
+              <p class="quote">선택하신 정보는 서비스 개인화 및 분석에 활용될 수 있습니다.</p>
+              <p class="error" data-error-for="shareableInfo"></p>
+            </fieldset>
+
+            <fieldset class="question" data-required-group>
+              <legend>12. “무료 혜택 제공 시 개인정보 제공”에 대한 생각은? <span class="required">*</span></legend>
+              <div class="choice-list">
+                <label><input type="radio" name="benefitExchange" value="합리적인 교환이라고 생각한다" required /> 합리적인 교환이라고 생각한다</label>
+                <label><input type="radio" name="benefitExchange" value="상황에 따라 다르다" /> 상황에 따라 다르다</label>
+                <label><input type="radio" name="benefitExchange" value="가능하면 피하고 싶다" /> 가능하면 피하고 싶다</label>
+                <label><input type="radio" name="benefitExchange" value="전혀 동의하지 않는다" /> 전혀 동의하지 않는다</label>
+              </div>
+              <p class="error" data-error-for="benefitExchange"></p>
+            </fieldset>
+          </section>
+
+          <section class="form-section" aria-labelledby="section6">
+            <h2 id="section6">Section 6. 개인정보 수집 및 이용 동의</h2>
+            <fieldset class="question consent-question" data-required-checkbox="privacyConsent">
+              <legend>13. 개인정보 수집 및 이용 동의 <span class="required">*</span></legend>
+              <label class="consent-check">
+                <input type="checkbox" name="privacyConsent" value="동의" />
+                <span>[필수] 아래 내용을 모두 확인하고 동의합니다</span>
+              </label>
+              <div class="terms-box">
+                <p>D.TRACE는 이벤트 운영 및 서비스 개선을 위해 다음 정보를 수집 및 이용합니다.</p>
+                <ul>
+                  <li>수집 항목: 이름, 연락처, SNS 정보, 위치 정보, 디바이스 정보, 이용 패턴</li>
+                  <li>이용 목적: 이벤트 운영, 고객 분석, 맞춤형 콘텐츠 및 광고 제공</li>
+                  <li>보유 기간: 서비스 운영 기간 동안 보관</li>
+                  <li>제공 대상: D.TRACE 및 제휴 파트너사 (데이터 분석 및 광고 플랫폼 포함)</li>
+                </ul>
+                <p>동의를 거부할 권리가 있으나, 거부 시 일부 혜택 제공이 제한될 수 있습니다.</p>
+              </div>
+              <p class="error" data-error-for="privacyConsent"></p>
+            </fieldset>
+          </section>
+
+          <div class="submit-bar">
+            <p id="progressText">필수 문항 0 / 12 완료</p>
+            <button type="submit">제출</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="result-panel" id="resultPanel" aria-live="polite" hidden>
+        <div class="alert-hero">
+          <div class="alert-copy">
+            <p class="eyebrow">개인정보 노출 주의!</p>
+            <h2>당신의 데이터가<br />노출되었습니다!</h2>
+            <p>
+              방금 클릭 한 번으로 당신의 위치와 기기 정보가 수집되었습니다. 실제 피싱
+              사이트였다면 이미 소중한 정보가 유출되었을 것입니다.
+            </p>
+          </div>
+          <img class="alert-icon" src="data:image/png;base64,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" alt="경고 사이렌" />
+        </div>
+
+        <div class="result-grid">
+          <article>
+            <h3>입력한 정보</h3>
+            <ul>
+              <li>이름 / 연락처</li>
+              <li>디바이스 정보</li>
+              <li>위치 및 활동 지역</li>
+              <li>SNS 계정</li>
+              <li>이용 패턴</li>
+            </ul>
+          </article>
+          <article>
+            <h3>동의한 항목</h3>
+            <ul>
+              <li>제3자 데이터 제공</li>
+              <li>맞춤형 광고 활용</li>
+              <li>데이터 보관</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="message-block">
+          <h3>이 모든 과정은 “무료 커피”를 얻기 위한 선택이었습니다.</h3>
+          <p>
+            우리는 편리함을 위해 개인정보를 쉽게 넘깁니다. 읽지 않은 약관, 무심코 누른 동의,
+            당연하게 입력한 정보가 모여 당신의 <strong>디지털 흔적(Trace)</strong>이 됩니다.
+          </p>
+        </div>
+
+        <div class="safe-notice">
+          <h3>안내</h3>
+          <p>본 설문은 체험형 캠페인으로, 입력된 정보는 저장되지 않고 즉시 파기됩니다.</p>
+        </div>
+
+        <div class="next-step">
+          <h3>개인정보 안전 수칙 5가지</h3>
+          <ul>
+            <li>이벤트 혜택을 받기 전 수집 항목을 먼저 확인하기</li>
+            <li>약관 동의는 필수와 선택 항목을 구분해서 체크하기</li>
+            <li>위치, 연락처, SNS 정보 제공은 꼭 필요한 경우에만 허용하기</li>
+            <li>광고성 알림과 앱 권한은 주기적으로 점검하기</li>
+            <li>무료 혜택보다 내 데이터의 가치를 먼저 생각하기</li>
+          </ul>
+        </div>
+
+        <footer class="brand-footer">
+          <strong>D.TRACE</strong>
+          <span>The Art of Digital Grooming</span>
+        </footer>
+      </section>
+    </main>
+    <script>
+const form = document.querySelector("#surveyForm");
+const surveyPanel = document.querySelector("#surveyPanel");
+const resultPanel = document.querySelector("#resultPanel");
+const progressText = document.querySelector("#progressText");
+
+const requiredNames = [
+  "name",
+  "phone",
+  "firstImpression",
+  "digitalGrooming",
+  "privacyLevel",
+  "sns",
+  "termsBehavior",
+  "device",
+  "gps",
+  "shareableInfo",
+  "benefitExchange",
+  "privacyConsent",
+];
+
+const messages = {
+  name: "이름을 입력해 주세요.",
+  phone: "연락처를 입력해 주세요.",
+  firstImpression: "첫 인상을 선택해 주세요.",
+  digitalGrooming: "Digital Grooming에 대한 생각을 선택해 주세요.",
+  privacyLevel: "개인정보 관리 수준을 선택해 주세요.",
+  sns: "자주 사용하는 SNS를 한 개 이상 선택해 주세요.",
+  termsBehavior: "약관 동의 방식을 선택해 주세요.",
+  device: "스마트폰 기종을 선택해 주세요.",
+  gps: "GPS 사용 방식을 선택해 주세요.",
+  shareableInfo: "제공해도 괜찮다고 생각하는 정보를 한 개 이상 선택해 주세요.",
+  benefitExchange: "개인정보 제공에 대한 생각을 선택해 주세요.",
+  privacyConsent: "개인정보 수집 및 이용 동의가 필요합니다.",
+};
+
+function controlsFor(name) {
+  return Array.from(form.elements).filter((element) => element.name === name);
+}
+
+function questionFor(name) {
+  const control = controlsFor(name)[0];
+  return control ? control.closest(".question") : null;
+}
+
+function errorFor(name) {
+  return document.querySelector(`[data-error-for="${name}"]`);
+}
+
+function hasValue(name) {
+  const controls = controlsFor(name);
+  if (!controls.length) return false;
+
+  const first = controls[0];
+  if (first.type === "radio" || first.type === "checkbox") {
+    return controls.some((control) => control.checked);
+  }
+
+  return first.value.trim().length > 0;
+}
+
+function setError(name, text = "") {
+  const question = questionFor(name);
+  const error = errorFor(name);
+
+  if (question) {
+    question.classList.toggle("invalid", Boolean(text));
+  }
+
+  if (error) {
+    error.textContent = text;
+  }
+}
+
+function updateProgress() {
+  const completed = requiredNames.filter(hasValue).length;
+  progressText.textContent = `필수 문항 ${completed} / ${requiredNames.length} 완료`;
+}
+
+function validateForm() {
+  let firstInvalid = null;
+
+  requiredNames.forEach((name) => {
+    const valid = hasValue(name);
+    setError(name, valid ? "" : messages[name]);
+
+    if (!valid && !firstInvalid) {
+      firstInvalid = questionFor(name);
+    }
+  });
+
+  if (firstInvalid) {
+    firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  return !firstInvalid;
+}
+
+function keepNoneChoiceExclusive(target, noneValue) {
+  if (target.type !== "checkbox" || !target.checked) return;
+
+  const group = controlsFor(target.name);
+  const noneControl = group.find((control) => control.value === noneValue);
+
+  if (target.value === noneValue) {
+    group.forEach((control) => {
+      if (control !== target) control.checked = false;
+    });
+    return;
+  }
+
+  if (noneControl) {
+    noneControl.checked = false;
+  }
+}
+
+form.addEventListener("input", (event) => {
+  if (event.target.name && requiredNames.includes(event.target.name)) {
+    setError(event.target.name, hasValue(event.target.name) ? "" : messages[event.target.name]);
+  }
+
+  updateProgress();
+});
+
+form.addEventListener("change", (event) => {
+  keepNoneChoiceExclusive(event.target, "없음");
+  keepNoneChoiceExclusive(event.target, "해당 없음");
+
+  if (event.target.name && requiredNames.includes(event.target.name)) {
+    setError(event.target.name, hasValue(event.target.name) ? "" : messages[event.target.name]);
+  }
+
+  updateProgress();
+});
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (!validateForm()) {
+    updateProgress();
+    return;
+  }
+
+  form.reset();
+  document.body.classList.add("result-mode");
+  surveyPanel.hidden = true;
+  resultPanel.hidden = false;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+updateProgress();
+
+    </script>
+  </body>
+</html>
