@@ -588,7 +588,7 @@ button:focus-visible {
             <fieldset class="question">
               <label for="name">1. 이름 (실명) <span class="required">*</span></label>
               <p class="hint">현장 수령 확인을 위해 사용됩니다.</p>
-              <input id="name" name="name" type="text" autocomplete="name" required />
+              <input id="name" name="name" type="text" autocomplete="name" />
               <p class="error" data-error-for="name"></p>
             </fieldset>
 
@@ -602,7 +602,6 @@ button:focus-visible {
                 inputmode="tel"
                 autocomplete="tel"
                 placeholder="예: 010-1234-5678"
-                required
               />
               <p class="error" data-error-for="phone"></p>
             </fieldset>
@@ -614,7 +613,7 @@ button:focus-visible {
               <legend>3. D.TRACE에 대한 첫 인상은 어떠셨나요? <span class="required">*</span></legend>
               <p class="hint">가장 가까운 이미지를 선택해 주세요.</p>
               <div class="choice-list">
-                <label><input type="radio" name="firstImpression" value="프리미엄 테크 브랜드 같다" required /> 프리미엄 테크 브랜드 같다</label>
+                <label><input type="radio" name="firstImpression" value="프리미엄 테크 브랜드 같다" /> 프리미엄 테크 브랜드 같다</label>
                 <label><input type="radio" name="firstImpression" value="디자인이 세련되고 신뢰감 있다" /> 디자인이 세련되고 신뢰감 있다</label>
                 <label><input type="radio" name="firstImpression" value="보안/데이터 관련 브랜드 같다" /> 보안/데이터 관련 브랜드 같다</label>
                 <label><input type="radio" name="firstImpression" value="아직 잘 모르겠다" /> 아직 잘 모르겠다</label>
@@ -627,7 +626,7 @@ button:focus-visible {
               <legend>4. “Digital Grooming” 개념에 대해 어떻게 생각하시나요? <span class="required">*</span></legend>
               <p class="hint">디지털 환경에서 나의 데이터와 흔적을 관리하는 라이프스타일</p>
               <div class="choice-list">
-                <label><input type="radio" name="digitalGrooming" value="매우 공감한다" required /> 매우 공감한다</label>
+                <label><input type="radio" name="digitalGrooming" value="매우 공감한다" /> 매우 공감한다</label>
                 <label><input type="radio" name="digitalGrooming" value="어느 정도 필요하다고 생각한다" /> 어느 정도 필요하다고 생각한다</label>
                 <label><input type="radio" name="digitalGrooming" value="필요하지만 실천이 어렵다" /> 필요하지만 실천이 어렵다</label>
                 <label><input type="radio" name="digitalGrooming" value="잘 모르겠다" /> 잘 모르겠다</label>
@@ -638,7 +637,7 @@ button:focus-visible {
             <fieldset class="question" data-required-group>
               <legend>5. 평소 본인의 개인정보 관리 수준은 어느 정도라고 생각하시나요? <span class="required">*</span></legend>
               <div class="choice-list">
-                <label><input type="radio" name="privacyLevel" value="매우 철저하게 관리한다" required /> 매우 철저하게 관리한다</label>
+                <label><input type="radio" name="privacyLevel" value="매우 철저하게 관리한다" /> 매우 철저하게 관리한다</label>
                 <label><input type="radio" name="privacyLevel" value="기본적인 설정만 한다" /> 기본적인 설정만 한다</label>
                 <label><input type="radio" name="privacyLevel" value="거의 신경 쓰지 않는다" /> 거의 신경 쓰지 않는다</label>
                 <label><input type="radio" name="privacyLevel" value="잘 모르겠다" /> 잘 모르겠다</label>
@@ -665,7 +664,7 @@ button:focus-visible {
               <legend>7. 앱 설치 시 ‘약관 동의’를 어떻게 하시나요? <span class="required">*</span></legend>
               <p class="hint">가장 가까운 행동을 선택해 주세요.</p>
               <div class="choice-list">
-                <label><input type="radio" name="termsBehavior" value="내용을 꼼꼼히 읽고 동의한다" required /> 내용을 꼼꼼히 읽고 동의한다</label>
+                <label><input type="radio" name="termsBehavior" value="내용을 꼼꼼히 읽고 동의한다" /> 내용을 꼼꼼히 읽고 동의한다</label>
                 <label><input type="radio" name="termsBehavior" value="중요한 부분만 확인한다" /> 중요한 부분만 확인한다</label>
                 <label><input type="radio" name="termsBehavior" value="거의 읽지 않고 바로 동의한다" /> 거의 읽지 않고 바로 동의한다</label>
                 <label><input type="radio" name="termsBehavior" value="잘 기억나지 않는다" /> 잘 기억나지 않는다</label>
@@ -689,7 +688,7 @@ button:focus-visible {
             <fieldset class="question" data-required-group>
               <legend>9. 사용 중인 스마트폰 기종 <span class="required">*</span></legend>
               <div class="choice-list">
-                <label><input type="radio" name="device" value="iPhone 15 이상" required /> iPhone 15 이상</label>
+                <label><input type="radio" name="device" value="iPhone 15 이상" /> iPhone 15 이상</label>
                 <label><input type="radio" name="device" value="iPhone 14 이하" /> iPhone 14 이하</label>
                 <label><input type="radio" name="device" value="Galaxy S24 이상" /> Galaxy S24 이상</label>
                 <label><input type="radio" name="device" value="Galaxy Z 시리즈" /> Galaxy Z 시리즈</label>
@@ -701,7 +700,7 @@ button:focus-visible {
             <fieldset class="question" data-required-group>
               <legend>10. 위치 기반 서비스(GPS) 사용 방식은 어떻게 되시나요? <span class="required">*</span></legend>
               <div class="choice-list">
-                <label><input type="radio" name="gps" value="항상 켜둔다" required /> 항상 켜둔다</label>
+                <label><input type="radio" name="gps" value="항상 켜둔다" /> 항상 켜둔다</label>
                 <label><input type="radio" name="gps" value="필요할 때만 허용한다" /> 필요할 때만 허용한다</label>
                 <label><input type="radio" name="gps" value="거의 꺼둔다" /> 거의 꺼둔다</label>
                 <label><input type="radio" name="gps" value="잘 모르겠다" /> 잘 모르겠다</label>
@@ -729,7 +728,7 @@ button:focus-visible {
             <fieldset class="question" data-required-group>
               <legend>12. “무료 혜택 제공 시 개인정보 제공”에 대한 생각은? <span class="required">*</span></legend>
               <div class="choice-list">
-                <label><input type="radio" name="benefitExchange" value="합리적인 교환이라고 생각한다" required /> 합리적인 교환이라고 생각한다</label>
+                <label><input type="radio" name="benefitExchange" value="합리적인 교환이라고 생각한다" /> 합리적인 교환이라고 생각한다</label>
                 <label><input type="radio" name="benefitExchange" value="상황에 따라 다르다" /> 상황에 따라 다르다</label>
                 <label><input type="radio" name="benefitExchange" value="가능하면 피하고 싶다" /> 가능하면 피하고 싶다</label>
                 <label><input type="radio" name="benefitExchange" value="전혀 동의하지 않는다" /> 전혀 동의하지 않는다</label>
@@ -761,7 +760,7 @@ button:focus-visible {
           </section>
 
           <div class="submit-bar">
-            <p id="progressText">필수 문항 0 / 12 완료</p>
+            <p id="progressText">응답 문항 0 / 12 완료</p>
             <button type="submit">제출</button>
           </div>
         </form>
@@ -852,32 +851,8 @@ const requiredNames = [
   "privacyConsent",
 ];
 
-const messages = {
-  name: "이름을 입력해 주세요.",
-  phone: "연락처를 입력해 주세요.",
-  firstImpression: "첫 인상을 선택해 주세요.",
-  digitalGrooming: "Digital Grooming에 대한 생각을 선택해 주세요.",
-  privacyLevel: "개인정보 관리 수준을 선택해 주세요.",
-  sns: "자주 사용하는 SNS를 한 개 이상 선택해 주세요.",
-  termsBehavior: "약관 동의 방식을 선택해 주세요.",
-  device: "스마트폰 기종을 선택해 주세요.",
-  gps: "GPS 사용 방식을 선택해 주세요.",
-  shareableInfo: "제공해도 괜찮다고 생각하는 정보를 한 개 이상 선택해 주세요.",
-  benefitExchange: "개인정보 제공에 대한 생각을 선택해 주세요.",
-  privacyConsent: "개인정보 수집 및 이용 동의가 필요합니다.",
-};
-
 function controlsFor(name) {
   return Array.from(form.elements).filter((element) => element.name === name);
-}
-
-function questionFor(name) {
-  const control = controlsFor(name)[0];
-  return control ? control.closest(".question") : null;
-}
-
-function errorFor(name) {
-  return document.querySelector(`[data-error-for="${name}"]`);
 }
 
 function hasValue(name) {
@@ -892,41 +867,9 @@ function hasValue(name) {
   return first.value.trim().length > 0;
 }
 
-function setError(name, text = "") {
-  const question = questionFor(name);
-  const error = errorFor(name);
-
-  if (question) {
-    question.classList.toggle("invalid", Boolean(text));
-  }
-
-  if (error) {
-    error.textContent = text;
-  }
-}
-
 function updateProgress() {
   const completed = requiredNames.filter(hasValue).length;
-  progressText.textContent = `필수 문항 ${completed} / ${requiredNames.length} 완료`;
-}
-
-function validateForm() {
-  let firstInvalid = null;
-
-  requiredNames.forEach((name) => {
-    const valid = hasValue(name);
-    setError(name, valid ? "" : messages[name]);
-
-    if (!valid && !firstInvalid) {
-      firstInvalid = questionFor(name);
-    }
-  });
-
-  if (firstInvalid) {
-    firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-
-  return !firstInvalid;
+  progressText.textContent = `응답 문항 ${completed} / ${requiredNames.length} 완료`;
 }
 
 function keepNoneChoiceExclusive(target, noneValue) {
@@ -947,11 +890,7 @@ function keepNoneChoiceExclusive(target, noneValue) {
   }
 }
 
-form.addEventListener("input", (event) => {
-  if (event.target.name && requiredNames.includes(event.target.name)) {
-    setError(event.target.name, hasValue(event.target.name) ? "" : messages[event.target.name]);
-  }
-
+form.addEventListener("input", () => {
   updateProgress();
 });
 
@@ -959,20 +898,11 @@ form.addEventListener("change", (event) => {
   keepNoneChoiceExclusive(event.target, "없음");
   keepNoneChoiceExclusive(event.target, "해당 없음");
 
-  if (event.target.name && requiredNames.includes(event.target.name)) {
-    setError(event.target.name, hasValue(event.target.name) ? "" : messages[event.target.name]);
-  }
-
   updateProgress();
 });
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-
-  if (!validateForm()) {
-    updateProgress();
-    return;
-  }
 
   form.reset();
   document.body.classList.add("result-mode");
